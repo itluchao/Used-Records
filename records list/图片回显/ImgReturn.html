@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+	<form action="">  
+	    <input type="file" name="files" accept="image/*" multiple  id="inputFiles">  
+	    <div class="img_box"></div>
+    </form>
+</body>
+</html>
+<script>  
+	$("#inputFiles").change(function(e) {
+		console.log(e.target.files)
+		for (var i = 0; i < e.target.files.length; i++) {  
+            var file = e.target.files.item(i);  
+            if (!(/^image\/.*$/i.test(file.type))) {  
+                continue; //不是图片 就跳出这一次循环  
+            }  
+            //实例化FileReader API  
+            var freader = new FileReader();  
+            freader.readAsDataURL(file);  
+            //console.log(freader)
+            freader.onload = function(e) {  
+            	$(".img_box").append('<img src="'+e.target.result+'" >')
+                // $("#myImg").attr("src",e.target.result);  
+            }  
+        }  
+	}); 
+</script>  
